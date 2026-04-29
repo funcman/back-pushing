@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/back-pushing/back-pushing/internal/storage"
+	"github.com/funcman/back-pushing/internal/storage"
 )
 
 type GraphStore struct {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/back-pushing/back-pushing/internal/storage/memory"
+	"github.com/funcman/back-pushing/internal/storage/memory"
 )
 
 func TestTraversalEngine_BFS(t *testing.T) {

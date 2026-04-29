@@ -1,4 +1,4 @@
-module github.com/back-pushing/back-pushing
+module github.com/funcman/back-pushing
 
 go 1.25.0
 

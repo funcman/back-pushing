@@ -4,7 +4,7 @@
 
 **Goal:** 构建最小可用核心——Ontology YAML解析、内存对象存储、基础图遍历引擎
 
-**Architecture:** 
+**Architecture:**
 - Go语言实现，模块化设计
 - YAML驱动Ontology定义，运行时解析注册
 - 内存存储层，图结构用邻接表实现
@@ -65,7 +65,7 @@ back-pushing/
 
 - [ ] **Step 1: 初始化Go模块**
 ```bash
-go mod init github.com/back-pushing/back-pushing
+go mod init github.com/funcman/back-pushing
 ```
 
 - [ ] **Step 2: 创建Makefile**

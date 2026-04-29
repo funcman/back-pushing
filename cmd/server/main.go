@@ -11,10 +11,10 @@ import (
 
 	graphql "github.com/graphql-go/graphql"
 
-	"github.com/back-pushing/back-pushing/internal/action"
-	"github.com/back-pushing/back-pushing/internal/engine/graph"
-	"github.com/back-pushing/back-pushing/internal/ontology"
-	"github.com/back-pushing/back-pushing/internal/storage/memory"
+	"github.com/funcman/back-pushing/internal/action"
+	"github.com/funcman/back-pushing/internal/engine/graph"
+	"github.com/funcman/back-pushing/internal/ontology"
+	"github.com/funcman/back-pushing/internal/storage/memory"
 )
 
 // Server is the main server struct that wires all components together

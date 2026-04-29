@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/back-pushing/back-pushing/internal/storage/memory"
+	"github.com/funcman/back-pushing/internal/storage/memory"
 )
 
 type SearchResult struct {

@@ -3,7 +3,7 @@ package action
 import (
 	"testing"
 
-	"github.com/back-pushing/back-pushing/internal/storage/memory"
+	"github.com/funcman/back-pushing/internal/storage/memory"
 )
 
 func TestDispatcher_RegisterAndDispatch(t *testing.T) {

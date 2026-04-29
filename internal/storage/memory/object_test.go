@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/back-pushing/back-pushing/internal/storage"
+	"github.com/funcman/back-pushing/internal/storage"
 )
 
 func TestObjectStore_CRUD(t *testing.T) {

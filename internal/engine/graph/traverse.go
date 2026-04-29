@@ -3,8 +3,8 @@ package graph
 import (
 	"context"
 
-	"github.com/back-pushing/back-pushing/internal/storage/memory"
-	"github.com/back-pushing/back-pushing/internal/storage"
+	"github.com/funcman/back-pushing/internal/storage/memory"
+	"github.com/funcman/back-pushing/internal/storage"
 )
 
 // Path is an alias for storage.Path
