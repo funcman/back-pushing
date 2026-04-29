@@ -87,6 +87,18 @@ func (s *GraphStore) GetEdges(ctx context.Context, linkType string, nodeID strin
 	return result, nil
 }
 
+func (s *GraphStore) GetOutgoingEdges(ctx context.Context, linkType string, nodeID string) ([]storage.Edge, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return s.edges[linkType][nodeID], nil
+}
+
+func (s *GraphStore) GetIncomingEdges(ctx context.Context, linkType string, nodeID string) ([]storage.Edge, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return s.revIdx[linkType][nodeID], nil
+}
+
 func (s *GraphStore) Traverse(ctx context.Context, startID string, linkTypes []string, depth int) ([]storage.Path, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()

@@ -46,7 +46,7 @@ func (e *TraversalEngine) BFS(ctx context.Context, startID string, linkName stri
 			visited[id] = true
 			result = append(result, id)
 
-			edges, err := e.graph.GetEdges(ctx, linkType, id)
+			edges, err := e.graph.GetOutgoingEdges(ctx, linkType, id)
 			if err != nil {
 				return nil, err
 			}
