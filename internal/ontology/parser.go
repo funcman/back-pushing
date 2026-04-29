@@ -8,8 +8,8 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Parse reads all .yaml files in the given directory and returns an Ontology
-func Parse(dir string) (*Ontology, error) {
+// ParseOntology reads all .yaml files in the given directory and returns an Ontology
+func ParseOntology(dir string) (*Ontology, error) {
 	ontology := &Ontology{
 		ObjectTypes: make(map[string]ObjectType),
 		Links:       make(map[string]Link),

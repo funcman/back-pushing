@@ -61,9 +61,9 @@ func TestParse(t *testing.T) {
 	}
 
 	// Parse the ontology
-	ontology, err := Parse(tmpDir)
+	ontology, err := ParseOntology(tmpDir)
 	if err != nil {
-		t.Fatalf("Parse() error = %v", err)
+		t.Fatalf("ParseOntology() error = %v", err)
 	}
 
 	// Verify object types
@@ -193,9 +193,9 @@ func TestParse(t *testing.T) {
 func TestParseEmptyDirectory(t *testing.T) {
 	tmpDir := t.TempDir()
 
-	ontology, err := Parse(tmpDir)
+	ontology, err := ParseOntology(tmpDir)
 	if err != nil {
-		t.Fatalf("Parse() error = %v", err)
+		t.Fatalf("ParseOntology() error = %v", err)
 	}
 
 	if len(ontology.ObjectTypes) != 0 {
@@ -204,7 +204,7 @@ func TestParseEmptyDirectory(t *testing.T) {
 }
 
 func TestParseNonExistentDirectory(t *testing.T) {
-	_, err := Parse("/nonexistent/path")
+	_, err := ParseOntology("/nonexistent/path")
 	if err == nil {
 		t.Error("expected error for non-existent directory")
 	}
