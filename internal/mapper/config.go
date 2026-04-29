@@ -8,6 +8,11 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// TargetConfig 目标对象配置
+type TargetConfig struct {
+	ObjectType string `yaml:"object_type"`
+}
+
 // MappingConfig 映射配置
 type MappingConfig struct {
 	Source struct {
@@ -18,9 +23,7 @@ type MappingConfig struct {
 
 	Env map[string]string `yaml:"env"`
 
-	Target struct {
-		ObjectType string `yaml:"object_type"`
-	} `yaml:"target"`
+	Target TargetConfig `yaml:"target"`
 
 	Fields []FieldMapping `yaml:"fields"`
 }
