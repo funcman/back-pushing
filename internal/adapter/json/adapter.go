@@ -4,6 +4,7 @@ package json
 import (
     "context"
     "encoding/json"
+    "fmt"
     "os"
 
     "github.com/funcman/back-pushing/internal/adapter"
@@ -18,14 +19,20 @@ func New(path string) *Adapter {
 }
 
 func (a *Adapter) Read(ctx context.Context) ([]map[string]any, error) {
+    select {
+    case <-ctx.Done():
+        return nil, fmt.Errorf("json adapter read: %w", ctx.Err())
+    default:
+    }
+
     data, err := os.ReadFile(a.path)
     if err != nil {
-        return nil, err
+        return nil, fmt.Errorf("json adapter read: %w", err)
     }
 
     var result []map[string]any
     if err := json.Unmarshal(data, &result); err != nil {
-        return nil, err
+        return nil, fmt.Errorf("json adapter read: %w", err)
     }
 
     return result, nil
