@@ -71,3 +71,124 @@ func TestLoadConfig_FileNotFound(t *testing.T) {
 		t.Error("expected error for non-existent file")
 	}
 }
+
+func TestLoadConfig_MalformedYAML(t *testing.T) {
+	tmp := t.TempDir()
+	path := tmp + "/malformed.yaml"
+
+	// Malformed YAML - invalid syntax
+	yaml := `
+source:
+  type: csv
+  path: ./data
+  invalid: yaml: content
+`
+	os.WriteFile(path, []byte(yaml), 0644)
+
+	_, err := LoadConfig(path)
+	if err == nil {
+		t.Error("expected error for malformed YAML")
+	}
+}
+
+func TestLoadConfig_EmptyFields(t *testing.T) {
+	tmp := t.TempDir()
+	path := tmp + "/empty_fields.yaml"
+
+	// Empty Fields slice - per requirements, this is valid in our design
+	yaml := `
+source:
+  type: csv
+  path: ./data/persons.csv
+
+target:
+  object_type: Person
+
+fields: []
+`
+	os.WriteFile(path, []byte(yaml), 0644)
+
+	cfg, err := LoadConfig(path)
+	if err != nil {
+		t.Fatalf("LoadConfig failed: %v", err)
+	}
+
+	// Empty fields is allowed by LoadConfig, but Validate should catch it
+	if len(cfg.Fields) != 0 {
+		t.Errorf("expected 0 fields, got %d", len(cfg.Fields))
+	}
+}
+
+func TestMappingConfig_Validate(t *testing.T) {
+	tests := []struct {
+		name    string
+		config  MappingConfig
+		wantErr bool
+		errMsg  string
+	}{
+		{
+			name: "valid config",
+			config: MappingConfig{
+				Source: struct {
+					Type  string `yaml:"type"`
+					Path  string `yaml:"path"`
+					Query string `yaml:"query"`
+				}{
+					Type: "csv",
+					Path: "./data/test.csv",
+				},
+				Fields: []FieldMapping{
+					{Source: "id", Target: "id", Type: "string"},
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "missing source type",
+			config: MappingConfig{
+				Source: struct {
+					Type  string `yaml:"type"`
+					Path  string `yaml:"path"`
+					Query string `yaml:"query"`
+				}{
+					Type: "",
+					Path: "./data/test.csv",
+				},
+				Fields: []FieldMapping{
+					{Source: "id", Target: "id", Type: "string"},
+				},
+			},
+			wantErr: true,
+			errMsg:  "source.type is required",
+		},
+		{
+			name: "empty fields",
+			config: MappingConfig{
+				Source: struct {
+					Type  string `yaml:"type"`
+					Path  string `yaml:"path"`
+					Query string `yaml:"query"`
+				}{
+					Type: "csv",
+					Path: "./data/test.csv",
+				},
+				Fields: []FieldMapping{},
+			},
+			wantErr: true,
+			errMsg:  "fields cannot be empty",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := tt.config.Validate()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if err != nil && err.Error() != tt.errMsg {
+				t.Errorf("Validate() error = %v, want %v", err, tt.errMsg)
+			}
+		})
+	}
+}

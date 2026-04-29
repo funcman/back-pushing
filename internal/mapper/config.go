@@ -47,3 +47,14 @@ func LoadConfig(path string) (*MappingConfig, error) {
 
 	return &cfg, nil
 }
+
+// Validate validates the mapping configuration
+func (c *MappingConfig) Validate() error {
+	if c.Source.Type == "" {
+		return fmt.Errorf("source.type is required")
+	}
+	if len(c.Fields) == 0 {
+		return fmt.Errorf("fields cannot be empty")
+	}
+	return nil
+}
