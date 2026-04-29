@@ -1,0 +1,5 @@
+paths:
+  social_network:
+    description: "社交网络路径"
+    steps:
+      - Person-[knows]->Person

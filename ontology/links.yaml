@@ -1,0 +1,5 @@
+links:
+  knows:
+    source: Person
+    target: Person
+    type: many-to-many

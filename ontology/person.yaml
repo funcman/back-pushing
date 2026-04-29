@@ -1,0 +1,20 @@
+object_types:
+  Person:
+    description: 自然人实体
+    type: entity
+    properties:
+      id:
+        type: string
+        primary: true
+      name:
+        type: string
+        indexed: true
+      email:
+        type: string
+        unique: true
+      tags:
+        type: list[string]
+
+    actions:
+      - name: "Escalate to Review"
+        handler: action.escalate_review
