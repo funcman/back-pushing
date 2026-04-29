@@ -41,6 +41,9 @@ func (r *Registry) RegisterOntology(ont *Ontology) error {
 	}
 
 	for name, path := range ont.Paths {
+		if _, exists := r.paths[name]; exists {
+			return fmt.Errorf("path %s already registered", name)
+		}
 		pathCopy := path
 		r.paths[name] = &pathCopy
 	}
