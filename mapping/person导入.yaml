@@ -1,0 +1,17 @@
+source:
+  type: csv
+  path: ./testdata/persons.csv
+
+target:
+  object_type: Person
+
+fields:
+  - source: id
+    target: id
+    type: string
+  - source: name
+    target: name
+    type: string
+  - source: email
+    target: email
+    type: string

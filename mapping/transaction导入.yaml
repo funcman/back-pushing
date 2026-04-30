@@ -1,0 +1,25 @@
+source:
+  type: json
+  path: ./testdata/transactions.json
+
+target:
+  object_type: Transaction
+
+fields:
+  - source: id
+    target: id
+    type: string
+  - source: amount
+    target: amount
+    type: float
+  - source: date
+    target: date
+    type: datetime
+  - source: from_account
+    target: from_account
+    type: string
+    link: transferred_from
+  - source: to_account
+    target: to_account
+    type: string
+    link: transferred_to

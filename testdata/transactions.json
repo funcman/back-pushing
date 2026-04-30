@@ -1,0 +1,4 @@
+[
+  {"id": "t1", "amount": 100.50, "date": "2024-01-15T10:00:00Z", "from_account": "acc1", "to_account": "acc2"},
+  {"id": "t2", "amount": 250.00, "date": "2024-01-16T14:30:00Z", "from_account": "acc2", "to_account": "acc3"}
+]
