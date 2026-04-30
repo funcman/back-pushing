@@ -33,18 +33,19 @@ func TestTemporalAnalyzer_RecordAndGet(t *testing.T) {
 }
 
 func TestAnomalyDetector_Detect(t *testing.T) {
-	// With window=5 and outlier in window, zscore is bounded by ~2.0
-	// Using threshold 1.99 to ensure zscore > threshold for outlier values
-	detector := NewAnomalyDetector(1.99, 5)
+	// SPEC: threshold=2.0, window=5
+	detector := NewAnomalyDetector(2.0, 5)
 
-	// Outlier value that produces zscore > 1.99
-	values := []float64{1, 1, 1, 1, 1, 1, 100}
+	// Outlier test: baseline={10,11,10,10,11}, latest=100
+	// Mean=10.4, stddev≈0.49, z-score≈182.9 >> 2.0 → anomaly detected
+	values := []float64{10, 11, 10, 10, 11, 10, 100.0}
 	result := detector.Detect(values)
 	if !result.IsAnomaly {
 		t.Errorf("expected anomaly to be detected for outlier value, got Score: %v", result.Score)
 	}
 
-	// Normal values that should not trigger anomaly
+	// Normal test: baseline={10,11,10,10,11}, latest=11
+	// z-score≈1.22 < 2.0 → no anomaly
 	normalValues := []float64{10, 11, 10, 10, 11, 10, 11}
 	result = detector.Detect(normalValues)
 	if result.IsAnomaly {

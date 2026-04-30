@@ -23,23 +23,22 @@ type AnomalyResult struct {
 }
 
 func (d *AnomalyDetector) Detect(values []float64) AnomalyResult {
-	if len(values) < d.window {
+	if len(values) < d.window+1 {
 		return AnomalyResult{IsAnomaly: false, Score: 0}
 	}
 
-	recent := values[len(values)-d.window:]
-	mean := d.mean(recent)
-	stddev := d.stddev(recent, mean)
+	baseline := values[len(values)-d.window-1 : len(values)-1]
+	latest := values[len(values)-1]
 
-	if len(values) > 0 {
-		latest := values[len(values)-1]
-		zscore := math.Abs((latest - mean) / stddev)
-		if zscore > d.threshold {
-			return AnomalyResult{
-				IsAnomaly: true,
-				Score:     zscore,
-				Message:   "Value deviates significantly from recent average",
-			}
+	mean := d.mean(baseline)
+	stddev := d.stddev(baseline, mean)
+
+	zscore := math.Abs((latest - mean) / stddev)
+	if zscore > d.threshold {
+		return AnomalyResult{
+			IsAnomaly: true,
+			Score:     zscore,
+			Message:   "Value deviates significantly from recent average",
 		}
 	}
 
