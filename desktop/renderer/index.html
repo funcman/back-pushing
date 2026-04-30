@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+  <title>Back-Pushing</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: #16213e;
+      padding: 20px 30px;
+      border-bottom: 1px solid #0f3460;
+    }
+    .header h1 {
+      font-size: 24px;
+      color: #e94560;
+    }
+    .header p {
+      color: #888;
+      margin-top: 5px;
+    }
+    .dashboard {
+      flex: 1;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #16213e;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #0f3460;
+    }
+    .card h2 {
+      font-size: 16px;
+      color: #e94560;
+      margin-bottom: 10px;
+    }
+    .card p {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .status {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #4ade80;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    .footer {
+      background: #16213e;
+      padding: 15px 30px;
+      text-align: center;
+      color: #666;
+      font-size: 12px;
+      border-top: 1px solid #0f3460;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Back-Pushing</h1>
+    <p>Desktop Application Dashboard</p>
+  </div>
+
+  <div class="dashboard">
+    <div class="card">
+      <h2>Application Status</h2>
+      <p><span class="status"></span>Running</p>
+      <p style="margin-top: 10px;">Version: 1.0.0</p>
+      <p>Platform: <span id="platform">Loading...</span></p>
+    </div>
+
+    <div class="card">
+      <h2>Quick Actions</h2>
+      <p>Use the menu bar or tray icon to access application features.</p>
+    </div>
+
+    <div class="card">
+      <h2>System Info</h2>
+      <p>Electron Desktop Application</p>
+      <p style="margin-top: 10px;">Node.js runtime environment</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    Back-Pushing Desktop v1.0.0
+  </div>
+
+  <script>
+    if (window.electronAPI) {
+      document.getElementById('platform').textContent = window.electronAPI.getPlatform();
+    }
+  </script>
+</body>
+</html>
