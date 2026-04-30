@@ -32,3 +32,15 @@ Thumbs.db
 # Build artifacts
 *.o
 *.a
+
+# Node dependencies
+node_modules/
+*.lock
+package-lock.json
+
+# Web build output
+web/dist/
+desktop/dist/
+
+# Electron
+*.asar
