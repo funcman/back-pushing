@@ -44,11 +44,15 @@ func (m *Mapper) Map(ctx context.Context, source adapter.DataSource) ([]Object, 
 			Data: make(map[string]any),
 		}
 
+		if id, ok := row["id"]; ok {
+			obj.ID = fmt.Sprintf("%v", id)
+		}
+
 		for _, f := range m.config.Fields {
 			val := row[f.Source]
 			converted, err := m.convert(val, f.Type)
 			if err != nil {
-				continue
+				return nil, fmt.Errorf("convert field %s: %w", f.Source, err)
 			}
 			obj.Data[f.Target] = converted
 
@@ -59,10 +63,6 @@ func (m *Mapper) Map(ctx context.Context, source adapter.DataSource) ([]Object, 
 					LinkType: f.Link,
 				})
 			}
-		}
-
-		if id, ok := obj.Data["id"]; ok {
-			obj.ID = fmt.Sprintf("%v", id)
 		}
 
 		objects = append(objects, obj)

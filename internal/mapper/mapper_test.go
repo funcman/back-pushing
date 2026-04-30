@@ -78,7 +78,10 @@ func TestMapper_Convert(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		got, _ := mapper.convert(tt.input, tt.typ)
+		got, err := mapper.convert(tt.input, tt.typ)
+		if err != nil {
+			t.Errorf("convert(%v, %s) returned error: %v", tt.input, tt.typ, err)
+		}
 		if got != tt.want {
 			t.Errorf("convert(%v, %s) = %v, want %v", tt.input, tt.typ, got, tt.want)
 		}
