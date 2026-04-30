@@ -1,0 +1,5 @@
+event_type,timestamp,actor,amount,risk_score
+Transaction,2024-01-15T10:00:00Z,acc1,5000,0.2
+Transaction,2024-01-15T11:00:00Z,acc1,15000,0.9
+Transaction,2024-01-15T12:00:00Z,acc2,3000,0.3
+Alert,2024-01-15T12:00:00Z,acc1,0,0.85

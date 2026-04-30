@@ -1,0 +1,22 @@
+rules:
+  - name: high_value_transaction
+    description: Alert on transactions over 10000
+    condition:
+      field: amount
+      operator: gt
+      value: 10000
+    action:
+      type: alert
+      params:
+        severity: high
+
+  - name: high_risk_score
+    description: Alert when risk score is above 0.8
+    condition:
+      field: risk_score
+      operator: gte
+      value: 0.8
+    action:
+      type: alert
+      params:
+        severity: critical
