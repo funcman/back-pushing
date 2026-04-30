@@ -1,0 +1,25 @@
+type Object {
+    id: String!
+    type: String!
+    data: JSON!
+}
+
+type Query {
+    object(type: String!, id: String!): Object
+    objects(type: String!): [Object!]!
+    search(query: String!, type: String): [Object!]!
+}
+
+type Mutation {
+    createObject(type: String!, id: String!, data: JSON!): Object!
+    updateObject(type: String!, id: String!, data: JSON!): Object!
+    deleteObject(type: String!, id: String!): Boolean!
+}
+
+type Alert {
+    id: String!
+    ruleName: String!
+    severity: String!
+    message: String!
+    timestamp: String!
+}
